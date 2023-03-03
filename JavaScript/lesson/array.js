@@ -117,6 +117,12 @@ let jual_kendaraan = [
     harga: 100,
     lokasi: "Indonesia",
   },
+  {
+    title: "Beat emak-emak",
+    deskripsi: "Minus gores karena keseringan belok dadakan",
+    harga: 50,
+    lokasi: "Indonesia",
+  },
 ];
 
 // forEach bisa digunakan untuk menambahkan property baru didalam suatu element dalam array
