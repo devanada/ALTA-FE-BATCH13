@@ -1,0 +1,15 @@
+{
+  "name": "testing",
+  "version": "1.0.0",
+  "description": "Learn basic unit test using jest",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --collect-coverage"
+  },
+  "keywords": [],
+  "author": "devanada",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.4.3"
+  }
+}

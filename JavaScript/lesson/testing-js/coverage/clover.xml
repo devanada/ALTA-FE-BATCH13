@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1678095596540" clover="3.2.0">
+  <project timestamp="1678095596540" name="All files">
+    <metrics statements="12" coveredstatements="12" conditionals="24" coveredconditionals="24" methods="2" coveredmethods="2" elements="38" coveredelements="38" complexity="0" loc="12" ncloc="12" packages="2" files="2" classes="2"/>
+    <package name="problem1">
+      <metrics statements="9" coveredstatements="9" conditionals="20" coveredconditionals="20" methods="1" coveredmethods="1"/>
+      <file name="problem1.js" path="G:\DISK 2\_Work\_Sandbox\ALTA-FE-BATCH13\JavaScript\lesson\testing-js\Part2\problem1\problem1.js">
+        <metrics statements="9" coveredstatements="9" conditionals="20" coveredconditionals="20" methods="1" coveredmethods="1"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="4" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="5" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="6" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="7" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="problem2">
+      <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <file name="problem2.js" path="G:\DISK 2\_Work\_Sandbox\ALTA-FE-BATCH13\JavaScript\lesson\testing-js\Part2\problem2\problem2.js">
+        <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="2" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
