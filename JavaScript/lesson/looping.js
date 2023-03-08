@@ -147,7 +147,7 @@ function forOfLoop(elements) {
 }
 
 function forEachLoop(elements) {
-  elements.forEach((item, indeh) => {
+  elements.forEach((item, index) => {
     // code here
   });
 }
