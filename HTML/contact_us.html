@@ -2,8 +2,113 @@
 <html>
   <head>
     <title>Contact Us</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/contact_us.css" />
   </head>
   <body>
-    <div>Contact Us Page</div>
+    <!-- Navbar -->
+    <nav class="bg-body-tertiary navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="index.html"
+              >Home</a
+            >
+            <a class="nav-link" href="about.html">About</a>
+            <a class="nav-link" href="experience.html">Experience</a>
+            <a class="nav-link" href="contact_us.html">Contact</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid layout">
+      <div class="row" style="height: 100%">
+        <div class="col-5 con-contact-left">
+          <div class="d-flex contact-left-img">
+            <img
+              src="/HTML/assets/images/logo-alta.png"
+              alt="Logo Alterra"
+              style="width: 40%"
+            />
+          </div>
+        </div>
+        <div class="col-6 con-contact-right">
+          <p>Contact Us</p>
+          <form>
+            <div class="mb-3">
+              <label for="formFullName" class="form-label"
+                >Full Name<span style="color: red">*</span></label
+              >
+              <input
+                class="form-control"
+                id="formFullName"
+                placeholder="Full Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formEmail" class="form-label"
+                >Email Address<span style="color: red">*</span></label
+              >
+              <input
+                class="form-control"
+                id="formEmail"
+                placeholder="example@alterra.id"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formPhoneNumber" class="form-label"
+                >Phone Number<span style="color: red">*</span></label
+              >
+              <input
+                class="form-control"
+                id="formPhoneNumber"
+                placeholder="085554447900"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formRole" class="form-label">Role</label>
+              <select class="form-select" aria-label="Select Role">
+                <option selected disabled>Selected</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="formMessage" class="form-label">Message</label>
+              <textarea
+                class="form-control"
+                id="formMessage"
+                rows="4"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
