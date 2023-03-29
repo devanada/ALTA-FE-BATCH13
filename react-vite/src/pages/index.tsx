@@ -1,9 +1,10 @@
 import { Component } from "react";
-import Card from "../components/Card";
+import axios from "axios";
 
-import Layout from "../components/Layout"; // default import
-import { Spinner } from "../components/Loading";
-import { UserType } from "../utils/types/user"; // named import
+import { Spinner } from "@/components/Loading";
+import Layout from "@/components/Layout"; // default import
+import Card from "@/components/Card";
+import { UserType } from "@/utils/types/user"; // named import
 
 interface PropsType {}
 
@@ -28,32 +29,44 @@ class Home extends Component<PropsType, StateType> {
   componentDidMount(): void {
     // jika dilakukan perubahan nilai dari sebuah state didalam side effect, maka akan dilakukan render ulang
     this.fetchData();
-    this.fetchProfile();
+    // this.fetchAlternative();
   }
 
   fetchData() {
-    let temp: UserType[] = [];
-    for (let i = 1; i <= 12; i++) {
-      const obj = {
-        id: i,
-        first_name: "John",
-        last_name: "Doe",
-        username: `john_doe${i}`,
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png",
-      };
-      temp.push(obj);
-    }
-    setTimeout(() => {
-      // setState = updater, untuk merubah nilai dari sebuah state
-      this.setState({
-        datas: temp,
-        loading: false,
-      });
-    }, 1000);
+    axios
+      .get("users")
+      .then((response) => {
+        // Akan resolve ketika server memberikan response OK ke Frontend
+        const { data } = response.data;
+        this.setState({ datas: data });
+        // console.log(data);
+      })
+      .catch((error) => {
+        // Akan reject ketika server memberikan response failed ke Frontend
+        console.log(error);
+        alert(error.toString());
+      })
+      .finally(() => this.setState({ loading: false }));
   }
 
-  fetchProfile() {}
+  fetchAlternative() {
+    fetch(
+      "https://virtserver.swaggerhub.com/devanada/hells-kitchen/1.1.0/users"
+    )
+      .then((result) => result.json())
+      .then((response) => {
+        // Akan resolve ketika server dapat memberikan jawaban/response entah berhasil atau gagal kepada Frontend
+        const { data } = response;
+        this.setState({ datas: data });
+        console.log(data);
+      })
+      .catch((error) => {
+        // Akan reject ketika server tidak memberikan response sama sekali ke Frontend
+        console.log(error);
+        alert(error.toString());
+      })
+      .finally(() => this.setState({ loading: false }));
+  }
 
   render() {
     return (
