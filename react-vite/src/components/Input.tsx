@@ -23,3 +23,5 @@ export class TextArea extends Component<
     );
   }
 }
+
+// export { Input, TextArea }

@@ -1,12 +1,13 @@
 import { Component, FormEvent } from "react";
 import axios from "axios";
 
-import Layout from "@/components/Layout";
+import withRouter, { NavigateParam } from "@/utils/navigation";
 import { UserEdit } from "@/utils/types/user";
-import Button from "@/components/Button";
 import { Input } from "@/components/Input";
+import Layout from "@/components/Layout";
+import Button from "@/components/Button";
 
-interface PropsType {}
+interface PropsType extends NavigateParam {}
 
 interface StateType {
   data: Partial<UserEdit>;
@@ -33,8 +34,9 @@ class Profile extends Component<PropsType, StateType> {
   }
 
   fetchData() {
+    const { username } = this.props.params;
     axios
-      .get("users/testing")
+      .get(`users/${username}`)
       .then((response) => {
         const { data } = response.data;
         this.setState({ data: data, image: data.image });
@@ -47,7 +49,7 @@ class Profile extends Component<PropsType, StateType> {
   }
 
   handleChange(value: string | File, key: keyof typeof this.state.objSubmit) {
-    let temp = { ...this.state.objSubmit };
+    let temp = { ...this.state.objSubmit }; // duplikat state objSubmit yang nantinya akan dimutasi nilainya
     temp[key] = value;
     this.setState({ objSubmit: temp });
   }
@@ -155,4 +157,4 @@ class Profile extends Component<PropsType, StateType> {
   }
 }
 
-export default Profile;
+export default withRouter(Profile);

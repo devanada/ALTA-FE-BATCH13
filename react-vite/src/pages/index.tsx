@@ -57,7 +57,7 @@ class Home extends Component<PropsType, StateType> {
       .then((response) => {
         // Akan resolve ketika server dapat memberikan jawaban/response entah berhasil atau gagal kepada Frontend
         const { data } = response;
-        this.setState({ datas: data });
+        this.setState({ datas: data }); // Updater untuk merubah nilai dari sebuah state
         console.log(data);
       })
       .catch((error) => {

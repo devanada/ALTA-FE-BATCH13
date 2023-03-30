@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import { Component } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   image: string;
@@ -27,9 +28,9 @@ class Card extends Component<Props> {
           alt={`${username}'s picture`}
           className="rounded-full w-28 aspect-square"
         />
-        <p className="font-bold tracking-wider">
+        <Link className="font-bold tracking-wider" to={`profile/${username}`}>
           {first_name} {last_name}
-        </p>
+        </Link>
         <p className="text-sm">{username}</p>
       </div>
     );
