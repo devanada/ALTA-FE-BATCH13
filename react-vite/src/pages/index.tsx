@@ -1,44 +1,63 @@
-import { Component } from "react";
+import { FC, useState, useEffect } from "react";
 import axios from "axios";
 
 import { Spinner } from "@/components/Loading";
 import Layout from "@/components/Layout"; // default import
+import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { UserType } from "@/utils/types/user"; // named import
+import { useTitle, useFetchGet } from "@/utils/hooks";
 
-interface PropsType {}
-
-interface StateType {
-  datas: UserType[];
-  loading: boolean;
-}
-
-class Home extends Component<PropsType, StateType> {
+const Home: FC = () => {
   // Constructor start
-  constructor(props: PropsType) {
-    super(props);
-    this.state = {
-      // state: default value
-      datas: [],
-      loading: true,
-    };
-  }
+  const [datas, setDatas] = useState<UserType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [refresh, setRefresh] = useState<boolean>(true);
+  const [data] = useFetchGet(
+    "https://virtserver.swaggerhub.com/devanada/hells-kitchen/1.1.0/users"
+  );
+  useTitle("Homepage | User Management");
   // Constructor end
 
-  // side effect
-  componentDidMount(): void {
-    // jika dilakukan perubahan nilai dari sebuah state didalam side effect, maka akan dilakukan render ulang
-    this.fetchData();
-    // this.fetchAlternative();
-  }
+  // Side effect
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  fetchData() {
+  /*
+  Ketika ada perubahan state pada saat side effect berjalan, maka terjadi sebuah re-render component
+
+  Side effect dijalankan sekali setelah component telah dimuat, mirip seperti dengan componentDidMount (menambahkan empty scope sebagai deps)
+  useEffect(() => {
+    ...
+  }, []);
+
+  Side effect dijalankan sekali pada saat component telah dibuat, lalu akan dijalankan kembali ketika ada perubahan nilai dari salah satu state yang ditulis didalam scope, mirip seperti componentDidMount + componentDidUpdate
+  useEffect(() => {
+    ...
+  }, [refresh]);
+
+  Side effect akan jalan secara terus menerus kalau penulisannya tanpa scope ([])
+  useEffect(() => {
+    ...
+  })
+
+  Side effect akan dijalankan setiap waktu (mirip dengan penulisan useEffect tanpa scope), namun dia akan berhenti/unsubscribe ketika kita meninggalkan halaman, dengan harap agar performa dari web tetap terjaga karena tidak ada proses berjalan dibelakang layar, contoh implementasi di real life adalah OTP (ada perhitungan mundur yang dijalankan setiap detik), ataupun status online. useEffect ini sendiri mirip dengan componentDidMount + componentDidUpdate + componentWillUnmount
+  useEffect(() => {
+    ...
+    return () => {
+      ...
+    }
+  })
+  */
+
+  function fetchData() {
     axios
       .get("users")
       .then((response) => {
         // Akan resolve ketika server memberikan response OK ke Frontend
         const { data } = response.data;
-        this.setState({ datas: data });
+        setDatas(data);
         // console.log(data);
       })
       .catch((error) => {
@@ -46,10 +65,10 @@ class Home extends Component<PropsType, StateType> {
         console.log(error);
         alert(error.toString());
       })
-      .finally(() => this.setState({ loading: false }));
+      .finally(() => setLoading(false));
   }
 
-  fetchAlternative() {
+  function fetchAlternative() {
     fetch(
       "https://virtserver.swaggerhub.com/devanada/hells-kitchen/1.1.0/users"
     )
@@ -57,7 +76,7 @@ class Home extends Component<PropsType, StateType> {
       .then((response) => {
         // Akan resolve ketika server dapat memberikan jawaban/response entah berhasil atau gagal kepada Frontend
         const { data } = response;
-        this.setState({ datas: data }); // Updater untuk merubah nilai dari sebuah state
+        // setDatas(data); // Updater untuk merubah nilai dari sebuah state
         console.log(data);
       })
       .catch((error) => {
@@ -65,32 +84,31 @@ class Home extends Component<PropsType, StateType> {
         console.log(error);
         alert(error.toString());
       })
-      .finally(() => this.setState({ loading: false }));
+      .finally(() => setLoading(false));
   }
 
-  render() {
-    return (
-      <Layout>
-        <div className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
-          {this.state.loading ? (
-            <Spinner />
-          ) : (
-            this.state.datas.map((data, index) => {
-              return (
-                <Card
-                  key={data.id} // <~~ wajib ada sebagai pengenal satu sama lain
-                  first_name={data.first_name}
-                  last_name={data.last_name}
-                  username={data.username}
-                  image={data.image}
-                />
-              );
-            })
-          )}
-        </div>
-      </Layout>
-    );
-  }
-}
+  return (
+    <Layout>
+      <Button label="Submit" onClick={() => setRefresh(!refresh)} />
+      <div className="grid gap-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+        {loading ? (
+          <Spinner />
+        ) : (
+          datas.map((data, index) => {
+            return (
+              <Card
+                key={data.id} // <~~ wajib ada sebagai pengenal satu sama lain
+                first_name={data.first_name}
+                last_name={data.last_name}
+                username={data.username}
+                image={data.image}
+              />
+            );
+          })
+        )}
+      </div>
+    </Layout>
+  );
+};
 
 export default Home;

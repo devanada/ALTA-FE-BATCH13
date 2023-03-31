@@ -10,6 +10,7 @@ export interface NavigateParam {
   params: Readonly<Params<string>>;
 }
 
+// TODO: Change the data type of Component
 const withRouter = (Component: any) => {
   const Wrapper = (props: any) => {
     const navigate = useNavigate();

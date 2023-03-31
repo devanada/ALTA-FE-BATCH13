@@ -1,11 +1,12 @@
-import { Component } from "react";
+import { FC } from "react";
 
 import Layout from "@/components/Layout";
+import { useTitle } from "@/utils/hooks";
 
-class Register extends Component {
-  render() {
-    return <Layout>Register</Layout>;
-  }
-}
+const Register: FC = () => {
+  useTitle("Register | User Management");
+
+  return <Layout>Register</Layout>;
+};
 
 export default Register;
