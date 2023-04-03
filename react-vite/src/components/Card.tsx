@@ -27,10 +27,13 @@ const Card: FC<Props> = (props) => {
         alt={`${username}'s picture`}
         className="rounded-full w-28 aspect-square"
       />
-      <Link className="font-bold tracking-wider" to={`profile/${username}`}>
+      <Link
+        className="font-bold tracking-wider dark:text-white"
+        to={`/profile/${username}`}
+      >
         {first_name} {last_name}
       </Link>
-      <p className="text-sm">{username}</p>
+      <p className="text-sm dark:text-white">{username}</p>
     </div>
   );
 };

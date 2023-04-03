@@ -4,14 +4,14 @@ import {
   useParams,
   Params,
 } from "react-router-dom";
+import { FC } from "react";
 
 export interface NavigateParam {
   navigate: NavigateFunction;
   params: Readonly<Params<string>>;
 }
 
-// TODO: Change the data type of Component
-const withRouter = (Component: any) => {
+const withRouter = (Component: FC) => {
   const Wrapper = (props: any) => {
     const navigate = useNavigate();
     const params = useParams();
