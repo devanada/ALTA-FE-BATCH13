@@ -1,21 +1,32 @@
 import { FC, FormEvent, useEffect, useState } from "react";
+import withReactContent from "sweetalert2-react-content";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
+import { RootState } from "@/utils/types/redux";
 import { UserEdit } from "@/utils/types/user";
 import { useTitle } from "@/utils/hooks";
+import Swal from "@/utils/swal";
 import { Input } from "@/components/Input";
 import Layout from "@/components/Layout";
 import Button from "@/components/Button";
 
 const Profile: FC = () => {
+  const { token, uname } = useSelector((state: RootState) => state.data);
   // const [state, updater] = useState(initialValue)
   const [objSubmit, setObjSubmit] = useState<Partial<UserEdit>>({});
   const [data, setData] = useState<Partial<UserEdit>>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const params = useParams();
+  const MySwal = withReactContent(Swal);
   // useTitle("Profile | User Management");
+
+  /*
+  PUT & POST -> method(url, body?, options?)
+  GET & DELETE -> method(url, options?)
+  */
 
   useEffect(() => {
     fetchData();
@@ -55,20 +66,54 @@ const Profile: FC = () => {
       .put("users", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        const { data } = response;
+        const { message } = response.data;
+        MySwal.fire({
+          title: "Success",
+          text: message,
+          showCancelButton: false,
+        });
         setIsEdit(false);
+        setObjSubmit({});
       })
       .catch((error) => {
-        alert(error.toString());
+        const { data } = error.response;
+        MySwal.fire({
+          title: "Failed",
+          text: data.message,
+          showCancelButton: false,
+        });
       })
       .finally(() => fetchData());
   }
 
-  const handleEditMode = () => {
-    setIsEdit(!isEdit);
+  const handleDeleteAccount = () => {
+    axios
+      .delete("/users", {
+        headers: {
+          Authorization: "", // TODO: Add JWT token to authorization
+        },
+      })
+      .then((response) => {
+        const { message } = response.data;
+        MySwal.fire({
+          title: "Success",
+          text: message,
+          showCancelButton: false,
+        });
+        // TODO: Delete cookies for token and username and redirect to the root page "/"
+      })
+      .catch((error) => {
+        const { data } = error.response;
+        MySwal.fire({
+          title: "Failed",
+          text: data.message,
+          showCancelButton: false,
+        });
+      });
   };
 
   // tulis destructuring dari state data agar penulisan code jadi lebih ringkas
@@ -112,11 +157,6 @@ const Profile: FC = () => {
               }
             />
             <Input
-              placeholder="Username"
-              defaultValue={data.username}
-              onChange={(event) => handleChange(event.target.value, "username")}
-            />
-            <Input
               placeholder="Password"
               defaultValue={data.password}
               onChange={(event) => handleChange(event.target.value, "password")}
@@ -133,7 +173,20 @@ const Profile: FC = () => {
         )}
       </div>
 
-      <Button label="Edit Profile" id="button-edit" onClick={handleEditMode} />
+      {uname === params.username && (
+        <>
+          <Button
+            label="Edit Profile"
+            id="button-edit"
+            onClick={() => setIsEdit(!isEdit)}
+          />
+          <Button
+            label="Delete Account"
+            id="button-delete"
+            onClick={() => handleDeleteAccount()}
+          />
+        </>
+      )}
     </Layout>
   );
 };

@@ -19,7 +19,9 @@ import Swal from "@/utils/swal";
 
 const Navbar: FC = () => {
   // useSelector untuk membaca/get state
-  const { isLoggedIn, uname } = useSelector((state: RootState) => state.data);
+  const { uname, isLoggedIn } = useSelector((state: RootState) => state.data);
+  // const uname = useSelector((state: RootState) => state.data.uname);
+  // const isLoggedIn = useSelector((state: RootState) => state.data.isLoggedIn);
   const { theme, setTheme } = useContext(ThemeContext);
   // [get, set, delete] = useCookies()
   const [, , removeCookie] = useCookies();
